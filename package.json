@@ -1,0 +1,11 @@
+{
+  "name": "b0t-ins1ide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "author": "MrS4g0",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  }
+}
