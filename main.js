@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-client.login('NjI0MzUwMjI0MzM2NTUxOTU2.XYPtdQ.2XRMipvEMTJzDn6aAWmilNTBiLg');
+client.login('XoTcabN6kUEXEzopvA_ChSEBVZ63j-XC');
 
 
 const prefix = '!bot ';
