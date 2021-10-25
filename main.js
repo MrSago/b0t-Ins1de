@@ -3,12 +3,31 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 client.login('NjI0MzUwMjI0MzM2NTUxOTU2.XYPtdQ.hQ-muvO7Ri8h0Di9RJR4q08cTNQ');
 
+const startUpTime = new Date();
 const prefix = '!bot ';
+const logID = '637661014351020052';
+
+const botID = '901511829958844448';
+const startBotTime = getDayInterval(15, 0, 0, 0);
+const stopBotTime = getDayInterval(22, 0, 0, 0);
+
+function sendMsg(id, msg) {
+    client.channels.cache.get(id).send(msg);
+}
+
+function getDayInterval(hours, minutes, seconds, milliseconds) {
+    var ms = new Date(startUpTime.getFullYear(), startUpTime.getMonth(), startUpTime.getDate(),
+                      hours, minutes, seconds, milliseconds) - startUpTime;
+    return ms < 0 ? ms + 86400000 : ms;
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
 
 client.once('ready', () => {
-    const logChannel = client.channels.cache.get('831057321219850260');
-    logChannel.send('b0t Ins1de restarted!');
+    sendMsg(logID, 'b0t Ins1de restarted!');
 });
 
 
@@ -21,53 +40,69 @@ client.on('message', message => {
     const command = args.shift().toLowerCase();
 
     switch (command) {
-        case 'sosi':
-            message.channel.send('sam sosi');
+        case 'hello':
+            message.channel.send('Greetings, ' + message.author.toString() + '!');
             break;
-        case 'name':
-            message.channel.send(message.author.tag);
-            break;
-        case 'maks':
-            message.channel.send('loh kakoyto');
+        case 'test':
+            onTimeToBotat();
             break;
         default:
-            message.channel.send('net takoy command dolbaeb');
+            message.channel.send('Command not found');
             break;
     }
 });
 
 
-function getDayInterval(hours, minutes, seconds, milliseconds) {
-    var now = new Date();
-    var ms = new Date(now.getFullYear(), now.getMonth(), now.getDate(),
-                                hours, minutes, seconds, milliseconds) - now;
-    return ms < 0 ? ms + 86400000 : ms;
-}
-
-var idBotInterval = null;
-const botChanel = client.channels.cache.get('901511829958844448');
+var IDBotInterval = null;
+const onBotMsg = [
+    'Ботай, глупый дурачок!',
+    'Мы уже ботаем, ты с нами?',
+    'Еще не начал ботать? Присоединяйся!',
+    'Бот как смысл жизни.',
+    'Без бота не выловишь и автомат по матану.',
+    'Работа не волк, волк это ходить, работа это бот!',
+    'Опять ботать?',
+    'Нужно больше бота!',
+    'Бот за Нер\'Зула!',
+    'Я поклялся ботать Нер\'Зулу!',
+    'Ботай во славу Плети!',
+    'Ботай, ботай, пирожок.',
+];
+const startBotMsg = [
+    'Начинаем ботать дамы и господа! Бот внутри нас! © b0t Ins1ide.',
+    'Проведи этот день настолько продуктивно, чтобы сам Илон Маск позавидовал!',
+    'Приготовь кофе и начинай ботать вместе с нами!',
+    'Да, дружочек, наконец-то пришел новый день и можно продолжать становится лучше!'
+];
+const stopBotMsg = [
+    'Заканичиваем ботать и начинаем чиллить!',
+    'Бот подходит к концу, надеюсь все провели этот день продуктивно!',
+    'Отлично, ты заслужил этот отдых!',
+    'Красавчик, выпей чаю и посмотри сериальчик!',
+    'На сегодня всё! Не забывай отдыхать и набираться сил, завтра еще поботаешь!'
+];
 
 function onTimeToBotat() {
-    botChanel.send('Ботай глупый дурачок!');
+    sendMsg(botID, onBotMsg[getRandomInt(onBotMsg.length)]);
 }
 
 function startTimeToBotat() {
-    botChanel.send('Начинаем ботать дамы и господа! Бот внутри нас © b0t Ins1ide.');
-    idBotInterval = setInterval(onTimeToBotat, 3600000);
+    IDBotInterval = setInterval(onTimeToBotat, 3600000);
+    sendMsg(botID, '@everyone\n' + startBotMsg[getRandomInt(startBotMsg.length)]);
 }
 
 function stopTimeToBotat() {
-    botChanel.send('Заканичиваем ботать и начинаем чиллить!');
-    clearInterval(idBotInterval);
+    clearInterval(IDBotInterval);
+    sendMsg(botID, '@everyone\n' + stopBotMsg[getRandomInt(stopBotMsg.length)]);
 }
 
 setTimeout(() => {
     startTimeToBotat();
     setInterval(startTimeToBotat, 86400000);
-}, getDayInterval(15, 0, 0, 0));
+}, startBotTime);
 
 setTimeout(() => {
     stopTimeToBotat();
-    setInterval(stopTimeToBotat, 86400000 - 1000);
-}, getDayInterval(22, 0, 0, 0) - 1000);
+    setInterval(stopTimeToBotat, 86400000);
+}, stopBotTime);
 
