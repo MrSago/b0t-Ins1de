@@ -1,8 +1,15 @@
 
-const { startUpTime } = require('./settings.js');
+const { startUpTime, logID } = require('./settings.js');
 
 function sendMsg(client, id, msg) {
-    client.channels.cache.get(id).send(msg);
+    try {
+        client.channels.cache.get(id).send(msg);
+    } catch (error) {
+        try { client.channels.cache.get(logID).send(error); }
+        catch { console.error(error); }
+        return false;
+    }
+    return true;
 }
 
 function dayInterval(hours, minutes, seconds, milliseconds) {

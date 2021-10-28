@@ -19,11 +19,25 @@ client.on('ready', () => {
 
 
 client.on('interactionCreate', async interaction => {
-  if (!interaction.isCommand()) return;
+    if (!interaction.isCommand()) return;
 
-  if (interaction.commandName === 'ping') {
-    await interaction.reply('Pong!');
-  }
+    const { commandName, options } = interaction;
+
+    try {
+        if (commandName === 'ping') {
+            await interaction.reply('Pong!');
+        } else if (commandName === 'msg') {
+            let args = options._hoistedOptions;
+            if (args[0] != null &&
+                sendMsg(client, interaction.channelId, args[0].value)) {
+                await interaction.reply({ content: 'Success!', ephemeral: true });
+            } else {
+                await interaction.reply({ content: 'Fail!', ephemeral: true });
+            }
+        }
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 

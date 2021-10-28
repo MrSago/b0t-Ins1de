@@ -8,7 +8,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const rest = new REST({ version: '9' }).setToken(token);
 
-const commands = require('./settings.js').commands;
+const { commands } = require('./settings.js');
 
 (async () => {
     try {
