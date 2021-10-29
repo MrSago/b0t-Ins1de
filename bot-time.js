@@ -13,7 +13,7 @@ function onToBot(client) {
 }
 
 function startToBot(client) {
-    IDBotInterval = setInterval(onToBot, 3600000);
+    IDBotInterval = setInterval(onToBot, 3600000, client);
     sendMsg(client, botID, '@everyone\n' + startMsg[randInt(startMsg.length)]);
 }
 
