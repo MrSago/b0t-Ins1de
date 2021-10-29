@@ -5,8 +5,7 @@ function sendMsg(client, id, msg) {
     try {
         client.channels.cache.get(id).send(msg);
     } catch (error) {
-        try { client.channels.cache.get(logID).send(error); }
-        catch { console.error(error); }
+        console.error(`Error while send message:\n${msg}\n` + error);
         return false;
     }
     return true;

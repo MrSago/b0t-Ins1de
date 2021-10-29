@@ -23,7 +23,7 @@ function stopToBot(client) {
 }
 
 
-function bot_time(client) {
+function botTime(client) {
     setTimeout(() => {
         startToBot(client);
         setInterval(startToBot, 86400000, client);
@@ -37,6 +37,6 @@ function bot_time(client) {
 
 
 module.exports = {
-    bot_time: bot_time
+    init: botTime
 }
 

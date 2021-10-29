@@ -24,10 +24,24 @@ const startUpTime = new Date();
 
 const logID = '903019914112167966';
 
+const rulesID = {
+    ch: '650230796518555651',
+    msg: [
+        '903735242513350716',
+        '903736209019375686'
+    ]
+};
+
+const rolesID = {
+    default: '903012753214689320'
+};
+
 
 module.exports = {
     commands: commands,
     startUpTime: startUpTime,
-    logID: logID
+    logID: logID,
+    rulesID: rulesID,
+    rolesID: rolesID
 }
 
