@@ -12,14 +12,10 @@ const { commands } = require('./settings.js');
 
 (async () => {
     try {
-        console.log('Started refreshing application (/) commands.');
-
         await rest.put(
             Routes.applicationGuildCommands(client_id, guild_id),
             { body: commands },
         );
-
-        console.log('Successfully reloaded application (/) commands.');
     } catch (error) {
         console.error(error);
     }
