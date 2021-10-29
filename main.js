@@ -2,12 +2,9 @@
 require('./index.js');
 
 require('dotenv').config();
-const token = process.env['token'];
-
 const { Client, Intents } = require('discord.js');
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
-client.login(token);
-
+client.login(process.env['token']);
 
 const { sendMsg } = require('./tools.js');
 const { logID } = require('./settings.js');
