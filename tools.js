@@ -1,5 +1,5 @@
 
-const { startUpTime, logID } = require('./settings.js');
+const { startUpTime } = require('./settings.js');
 
 function sendMsg(client, id, msg) {
     try {

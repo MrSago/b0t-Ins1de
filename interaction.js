@@ -1,6 +1,6 @@
 
-const { sendMsg } = require('./tools.js');
 const { commands } = require('./settings.js');
+const { sendMsg } = require('./tools.js');
 
 
 function interaction(client) {
