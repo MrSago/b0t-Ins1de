@@ -1,14 +1,32 @@
 
-const { rulesID, rolesID } = require('./settings.js');
+const { emojiID, rolesID } = require('./settings.js');
 
 
 function updateReact(client) {
-    client.channels.cache
-        .get(rulesID['ch'])
-            .messages.fetch(rulesID['msg'][0])
-                .then(message => {
-                    message.react('✅');
-                });
+    try {
+    let chs = client.channels.cache;
+
+    chs.get(emojiID['rules']['ch'])
+        .messages.fetch(emojiID['rules']['msg'])
+            .then(message => {
+                message.react('✅');
+            });
+
+    chs.get(emojiID['roles']['ch'])
+        .messages.fetch(emojiID['roles']['msg'])
+            .then(message => {
+                message.react('📚');
+                message.react('💻');
+                message.react('🎮');
+                message.react('🎨');
+                message.react('📈');
+                message.react('🎞️');
+                message.react('🌈');
+                message.react('⚽');
+            });
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 
@@ -30,16 +48,47 @@ function reactionRole(client) {
         }
 
         try {
-            if (reaction.message.id === rulesID['msg'][0]) {
-                if (reaction.emoji.name === '✅') {
-                    await reaction.message.guild.members.cache.get(user.id).roles.add(rolesID['default']);
-                } else {
-                    await reaction.remove();
+            let emoji = reaction.emoji.name;
+            let user_roles = reaction.message.guild.members.cache.get(user.id).roles;
+
+            if (reaction.message.id === emojiID['rules']['msg']) {
+                if (emoji === '✅') {
+                    await user_roles.add(rolesID['✅']);
                 }
             } else
 
-            if (reaction.message.id === rulesID['msg'][1]) {
-                await reaction.remove();
+            if (reaction.message.id === emojiID['roles']['msg']) {
+                if (emoji === '📚') {
+                    await user_roles.add(rolesID['📚']);
+                } else
+
+                if (emoji === '💻') {
+                    await user_roles.add(rolesID['💻']);
+                } else
+
+                if (emoji === '🎮') {
+                    await user_roles.add(rolesID['🎮']);
+                } else
+
+                if (emoji === '🎨') {
+                    await user_roles.add(rolesID['🎨']);
+                } else
+
+                if (emoji === '📈') {
+                    await user_roles.add(rolesID['📈']);
+                } else
+
+                if (emoji === '🎞️') {
+                    await user_roles.add(rolesID['🎞️']);
+                } else
+
+                if (emoji === '🌈') {
+                    await user_roles.add(rolesID['🌈']);
+                } else
+
+                if (emoji === '⚽') {
+                    await user_roles.add(rolesID['⚽']);
+                }
             }
         } catch (error) {
             console.error(error);
@@ -63,11 +112,46 @@ function reactionRole(client) {
         }
 
         try {
-            if (reaction.message.id === rulesID['msg'][0]) {
-                if (reaction.emoji.name === '✅') {
-                    await reaction.message.guild.members.cache.get(user.id).roles.remove(rolesID['default']);
-                } else {
-                    await reaction.remove();
+            let emoji = reaction.emoji.name;
+            let user_roles = reaction.message.guild.members.cache.get(user.id).roles;
+
+            if (reaction.message.id === emojiID['rules']['msg']) {
+                if (emoji === '✅') {
+                    await user_roles.remove(rolesID['✅']);
+                }
+            } else
+
+            if (reaction.message.id === emojiID['roles']['msg']) {
+                if (emoji === '📚') {
+                    await user_roles.remove(rolesID['📚']);
+                } else
+
+                if (emoji === '💻') {
+                    await user_roles.remove(rolesID['💻']);
+                } else
+
+                if (emoji === '🎮') {
+                    await user_roles.remove(rolesID['🎮']);
+                } else
+
+                if (emoji === '🎨') {
+                    await user_roles.remove(rolesID['🎨']);
+                } else
+
+                if (emoji === '📈') {
+                    await user_roles.remove(rolesID['📈']);
+                } else
+
+                if (emoji === '🎞️') {
+                    await user_roles.remove(rolesID['🎞️']);
+                } else
+
+                if (emoji === '🌈') {
+                    await user_roles.remove(rolesID['🌈']);
+                } else
+
+                if (emoji === '⚽') {
+                    await user_roles.remove(rolesID['⚽']);
                 }
             }
         } catch (error) {
