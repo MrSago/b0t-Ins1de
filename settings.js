@@ -22,6 +22,10 @@ const commands = [
 
 const startUpTime = new Date();
 
+const newsID = '648810027628494858';
+
+const greetingsID = '903007804711907328';
+
 const logChID = '903019914112167966';
 
 const botChID = '901511829958844448';
@@ -57,6 +61,8 @@ module.exports = {
     botChID: botChID,
     logID: logChID,
     emojiID: emojiID,
-    rolesID: rolesID
+    rolesID: rolesID,
+    newsID: newsID,
+    greetingsID: greetingsID
 }
 

@@ -8,28 +8,28 @@ const stopTime = dayInterval(22, 0, 0, 0);
 
 var IDBotInterval = null;
 
-function onToBot(client) {
+async function onToBot(client) {
     sendMsg(client, botChID, repeatMsg[randInt(repeatMsg.length)]);
 }
 
-function startToBot(client) {
+async function startToBot(client) {
     IDBotInterval = setInterval(onToBot, 3600000, client);
     sendMsg(client, botChID, '@everyone\n' + startMsg[randInt(startMsg.length)]);
 }
 
-function stopToBot(client) {
+async function stopToBot(client) {
     clearInterval(IDBotInterval);
     sendMsg(client, botChID, '@everyone\n' + stopMsg[randInt(stopMsg.length)]);
 }
 
 
 function botTime(client) {
-    setTimeout(() => {
+    setTimeout(async () => {
         startToBot(client);
         setInterval(startToBot, 86400000, client);
     }, startTime);
 
-    setTimeout(() => {
+    setTimeout(async () => {
         stopToBot(client);
         setInterval(stopToBot, 86400000, client);
     }, stopTime);

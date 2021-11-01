@@ -1,6 +1,6 @@
 
-const { emojiID, rolesID } = require('./settings.js');
-
+const { emojiID, rolesID, greetingsID } = require('./settings.js');
+const { sendMsg } = require('./tools.js');
 
 function updateReact(client) {
     try {
@@ -31,13 +31,15 @@ function updateReact(client) {
 
 
 function reactionRole(client) {
-    client.on('messageReactionAdd', async (reaction, user) => {
+    updateReact(client);
+
+    client.on('messageReactionAdd', async (msgReaction, user) => {
         try {
-            if (reaction.message.partial) {
-                await reaction.message.fetch();
+            if (msgReaction.message.partial) {
+                await msgReaction.message.fetch();
             }
-            if (reaction.partial) {
-                await reaction.fetch();
+            if (msgReaction.partial) {
+                await msgReaction.fetch();
             }
         } catch (error) {
             client.error(`Something went wrong when fetching the message:${error}`);
@@ -48,28 +50,36 @@ function reactionRole(client) {
         }
 
         try {
-            let emoji = reaction.emoji.name;
-            let user_roles = reaction.message.guild.members.cache.get(user.id).roles;
+            let emoji = msgReaction.emoji.name;
 
-            if (reaction.message.id === emojiID['rules']['msg'] && emoji in rolesID) {
-                await user_roles.add(rolesID[emoji]);
+
+            if (msgReaction.message.id === emojiID['rules']['msg'] &&
+                emoji in rolesID) {
+                await msgReaction.users.remove(user);
+
+                let role_manager = await msgReaction.message.guild.members.cache.get(user.id).roles;
+                if (await role_manager.cache.get(rolesID[emoji]) === undefined) {
+                    await role_manager.add(rolesID[emoji]);
+                    await sendMsg(client, greetingsID, `${user} подтвердил(а) регистрацию! Приветствуем!`);
+                }
             } else
 
-            if (reaction.message.id === emojiID['roles']['msg'] && emoji in rolesID) {
-                await user_roles.add(rolesID[emoji]);
+            if (msgReaction.message.id === emojiID['roles']['msg'] &&
+                emoji in rolesID) {
+                await msgReaction.message.guild.members.cache.get(user.id).roles.add(rolesID[emoji]);
             }
         } catch (error) {
             console.error(error);
         }
     });
 
-    client.on('messageReactionRemove', async (reaction, user) => {
+    client.on('messageReactionRemove', async (msgReaction, user) => {
         try {
-            if (reaction.message.partial) {
-                await reaction.message.fetch();
+            if (msgReaction.message.partial) {
+                await msgReaction.message.fetch();
             }
-            if (reaction.partial) {
-                await reaction.fetch();
+            if (msgReaction.partial) {
+                await msgReaction.fetch();
             }
         } catch (error) {
             client.error(`Something went wrong when fetching the message:${error}`);
@@ -80,15 +90,11 @@ function reactionRole(client) {
         }
 
         try {
-            let emoji = reaction.emoji.name;
-            let user_roles = reaction.message.guild.members.cache.get(user.id).roles;
+            let emoji = msgReaction.emoji.name;
 
-            if (reaction.message.id === emojiID['rules']['msg'] && emoji in rolesID) {
-                await user_roles.remove(rolesID[emoji]);
-            } else
-
-            if (reaction.message.id === emojiID['roles']['msg'] && emoji in rolesID) {
-                await user_roles.remove(rolesID[emoji]);
+            if (msgReaction.message.id === emojiID['roles']['msg'] &&
+                emoji in rolesID) {
+                await msgReaction.message.guild.members.cache.get(user.id).roles.remove(rolesID[emoji]);
             }
         } catch (error) {
             console.error(error);
@@ -99,6 +105,5 @@ function reactionRole(client) {
 
 module.exports = {
     init: reactionRole,
-    updateReact: updateReact
 }
 

@@ -1,7 +1,7 @@
 
 const { startUpTime } = require('./settings.js');
 
-function sendMsg(client, id, msg) {
+async function sendMsg(client, id, msg) {
     try {
         client.channels.cache.get(id).send(msg);
     } catch (error) {

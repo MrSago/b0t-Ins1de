@@ -21,7 +21,7 @@ const act = [
 
 function activities(client) {
     let current = 0;
-    setInterval(() => {
+    setInterval(async () => {
         client.user.setActivity(act[current].msg, { type: act[current].type });
         current = (current + 1) % act.length;
     }, 10000);
