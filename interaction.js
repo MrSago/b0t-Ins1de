@@ -17,7 +17,7 @@ function interaction(client) {
             if (commandName === commands[1].name) {
                 let args = options._hoistedOptions;
                 if (args[0] != null &&
-                        sendMsg(client, interaction.channelId, args[0].value)) {
+                    sendMsg(client, interaction.channelId, args[0].value)) {
                     await interaction.reply({ content: 'Success!', ephemeral: true });
                 } else {
                     await interaction.reply({ content: 'Fail!', ephemeral: true });
