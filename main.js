@@ -20,6 +20,6 @@ client.on('ready', () => {
     require('./interaction.js').init(client);
     require('./reaction-role.js').init(client);
     require('./bot-time.js').init(client);
-    sendMsg(client, logID, `${client.user} has restarted!`);
+    sendMsg(client, logID, `${client.user} has started!`);
 });
 
