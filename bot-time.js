@@ -34,7 +34,6 @@ async function continuteToBot(client) {
 
 function botTime(client) {
     if (startUpTime > startTime && startUpTime < stopTime) {
-        clearInterval(start_id);
         continuteToBot(client);
     } else {
         setTimeout(async () => {
