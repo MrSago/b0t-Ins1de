@@ -2,6 +2,7 @@
 const { emojiID, rolesID, greetingsID } = require('./settings.js');
 const { sendMsg } = require('./tools.js');
 
+
 function updateReact(client) {
     try {
         let chs = client.channels.cache;
@@ -19,10 +20,8 @@ function updateReact(client) {
                     message.react('💻');
                     message.react('🎮');
                     message.react('🎨');
-                    message.react('📈');
                     message.react('🎞️');
                     message.react('🌈');
-                    message.react('⚽');
                 });
     } catch (error) {
         console.error(error);

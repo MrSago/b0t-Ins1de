@@ -1,5 +1,5 @@
 
-const { botChID } = require('./settings.js');
+const { startUpTime, botChID } = require('./settings.js');
 const { repeatMsg, startMsg, stopMsg } = require('./bot-phrases.js');
 const { sendMsg, dayInterval, randInt } = require('./tools.js');
 
@@ -8,14 +8,17 @@ const stopTime = dayInterval(22, 0, 0, 0);
 
 var IDBotInterval = null;
 
+
 async function onToBot(client) {
     sendMsg(client, botChID, repeatMsg[randInt(repeatMsg.length)]);
 }
+
 
 async function startToBot(client) {
     IDBotInterval = setInterval(onToBot, 3600000, client);
     sendMsg(client, botChID, '@everyone\n' + startMsg[randInt(startMsg.length)]);
 }
+
 
 async function stopToBot(client) {
     clearInterval(IDBotInterval);
@@ -23,11 +26,22 @@ async function stopToBot(client) {
 }
 
 
+async function continuteToBot(client) {
+    IDBotInterval = setInterval(onToBot, 3600000, client);
+    sendMsg(client, botChID, '@everyone\n' + 'Продолжаем ботать дамы и господа!');
+}
+
+
 function botTime(client) {
-    setTimeout(async () => {
-        startToBot(client);
-        setInterval(startToBot, 86400000, client);
-    }, startTime);
+    if (startUpTime > startTime && startUpTime < stopTime) {
+        clearInterval(start_id);
+        continuteToBot(client);
+    } else {
+        setTimeout(async () => {
+            startToBot(client);
+            setInterval(startToBot, 86400000, client);
+        }, startTime);
+    }
 
     setTimeout(async () => {
         stopToBot(client);
