@@ -33,7 +33,8 @@ async function continuteToBot(client) {
 
 
 function botTime(client) {
-    if (startUpTime > startTime && startUpTime < stopTime) {
+    if (startUpTime.getMilliseconds() > startTime &&
+        startUpTime.getMilliseconds() < stopTime) {
         continuteToBot(client);
     } else {
         setTimeout(async () => {
