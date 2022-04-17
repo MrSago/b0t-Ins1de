@@ -1,10 +1,10 @@
 
 const { startUpTime, botChID } = require('./settings.js');
 const { repeatMsg, startMsg, stopMsg } = require('./bot-phrases.js');
-const { sendMsg, dayInterval, randInt } = require('./tools.js');
+const { sendMsg, dayInterval: dayIntervalMs, randInt } = require('./tools.js');
 
-const startTime = dayInterval(15, 0, 0, 0);
-const stopTime = dayInterval(22, 0, 0, 0);
+const startTime = dayIntervalMs(15, 0, 0, 0);
+const stopTime = dayIntervalMs(22, 0, 0, 0);
 
 var IDBotInterval = null;
 
@@ -28,10 +28,12 @@ async function continuteToBot(client) {
 }
 
 function botTime(client) {
-    let startUpTimeMs = startUpTime.getHours() * 3600000 +
+    let startUpTimeMs =
+        startUpTime.getHours() * 3600000 +
         startUpTime.getMinutes() * 60000 +
         startUpTime.getSeconds() * 1000 +
         startUpTime.getMilliseconds();
+
     if (startUpTimeMs > startTime && startUpTimeMs < stopTime) {
         continuteToBot(client);
     } else {
