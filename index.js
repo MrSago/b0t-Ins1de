@@ -10,7 +10,6 @@ const rest = new REST({ version: '9' }).setToken(token);
 
 const { commands } = require('./settings.js');
 
-
 (async () => {
     try {
         await rest.put(

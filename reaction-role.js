@@ -2,7 +2,6 @@
 const { emojiID, rolesID, greetingsID } = require('./settings.js');
 const { sendMsg } = require('./tools.js');
 
-
 function updateReact(client) {
     try {
         let chs = client.channels.cache;
@@ -28,7 +27,6 @@ function updateReact(client) {
     }
 }
 
-
 function reactionRole(client) {
     updateReact(client);
 
@@ -50,7 +48,6 @@ function reactionRole(client) {
 
         try {
             let emoji = msgReaction.emoji.name;
-
 
             if (msgReaction.message.id === emojiID['rules']['msg'] &&
                 emoji in rolesID) {

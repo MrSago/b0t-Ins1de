@@ -2,7 +2,6 @@
 const { commands } = require('./settings.js');
 const { sendMsg } = require('./tools.js');
 
-
 function interaction(client) {
     client.on('interactionCreate', async interaction => {
         if (!interaction.isCommand()) return;

@@ -18,7 +18,6 @@ const act = [
     }
 ];
 
-
 function activities(client) {
     let current = 0;
     setInterval(async () => {
